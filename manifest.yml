@@ -1,0 +1,11 @@
+---
+applications:
+- name: redis-demo-bittrex
+  memory: 512M
+  host: redis-demo-bittrex
+  domain: your-domain.com
+  env:
+    BITTREX_API_KEY:
+    BITTREX_SECRET_KEY:
+  services:
+  - my-redis-service
