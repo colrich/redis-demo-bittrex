@@ -14,14 +14,19 @@ import io.pivotal.cctp.bittrex.Bittrex;
 public class QuoteCommands {
     
     private static final Logger log = Logger.getLogger(QuoteCommands.class);
-
-    private static final String BITTREX_API_KEY = "REPLACE_ME";
-    private static final String BITTREX_SECRET_KEY = "REPLACE_ME";
-
     Bittrex bittrex;
 
     public QuoteCommands() {
-        bittrex = new Bittrex(BITTREX_API_KEY, BITTREX_SECRET_KEY, Bittrex.DEFAULT_RETRY_ATTEMPTS, Bittrex.DEFAULT_RETRY_DELAY);
+    		if (StringUtils.isEmpty(System.getenv("BITTREX_API_KEY"))) {
+    			System.err.println("***Please set environment variable BITTREX_API_KEY using cf set-env <APP> BITTREX_API_KEY <VAL> or embed in manifest.yml");
+    			System.exit(1);
+    		}
+    		if (StringUtils.isEmpty(System.getenv("BITTREX_SECRET_KEY"))) {
+    			System.err.println("***Please set environment variable BITTREX_SECRET_KEY using cf set-env <APP> BITTREX_SECRET_KEY <VAL>or embed in manifest.yml");
+    			System.exit(1);
+    		}
+        bittrex = new Bittrex(System.getenv("BITTREX_API_KEY"), System.getenv("BITTREX_SECRET_KEY"), Bittrex.DEFAULT_RETRY_ATTEMPTS, Bittrex.DEFAULT_RETRY_DELAY);
+        //bittrex = new Bittrex(BITTREX_API_KEY, BITTREX_SECRET_KEY, Bittrex.DEFAULT_RETRY_ATTEMPTS, Bittrex.DEFAULT_RETRY_DELAY);
     }
 
     public List<HashMap<String, String>> getMaps(String rawResponse) {
