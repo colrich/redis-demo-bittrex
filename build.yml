@@ -1,0 +1,20 @@
+platform: linux
+
+image_resource:
+  type: docker-image
+  source:
+    repository: nitram509/alpine-oraclejdk8-maven-cmake-gcc
+    tag: latest
+
+inputs:
+  - name: git-repo
+
+outputs:
+  - name: jar-file
+    path: redis-demo-repo/target/redis-demo-bittrex-0.0.1-SNAPSHOT.jar
+
+run:
+  path: mvn
+  args: ["-f", "redis-demo-repo/pom.xml", "-DskipTests=true", "package"]
+
+

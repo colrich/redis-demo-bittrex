@@ -1,0 +1,18 @@
+resources:
+- name: redis-demo-repo
+  type: git
+  source:
+    uri: https://github.com/colrich/redis-demo-bittrex
+
+jobs:
+  - name: maven-package
+    plan:
+    - get: git-repo
+      trigger: true
+    - task: maven-package
+      privileged: true
+      file: redis-demo-repo/build.yml
+#    - task: rename-file
+#      file: git-repo/pipeline/rename-file.yml
+ 
+
