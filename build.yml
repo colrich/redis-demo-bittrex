@@ -13,8 +13,16 @@ outputs:
   - name: jar-file
     path: target
 
-run:
-  path: mvn
-  args: ["-f", "redis-demo-repo/pom.xml", "-DskipTests=true", "package"]
+run: 
+  path: sh
+  args: 
+    - -exc
+    - |
+      mvn -f redis-demo-repo/pom.xml -DskipTests=true package
+      cp redis-demo-repo/target/redis-demo-bittrex-0.0.1-SNAPSHOT.jar target/
+
+#run:
+#  path: mvn
+#  args: ["-f", "redis-demo-repo/pom.xml", "-DskipTests=true", "package"]
 
 
